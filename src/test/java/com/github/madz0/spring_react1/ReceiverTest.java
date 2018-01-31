@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Matchers;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,6 +28,7 @@ import java.util.Random;
 @Slf4j
 @SpringBootTest(classes= {App.class})
 @RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles("test")
 public class ReceiverTest {
 
 	@MockBean
@@ -40,7 +42,7 @@ public class ReceiverTest {
 			setType("success");
 			setValue(new Quote() {{
 				
-				setId(1L);
+				setId(new Random().nextLong());
 				setQuote(String.valueOf(new Random().nextInt()));
 			}});
 		}});

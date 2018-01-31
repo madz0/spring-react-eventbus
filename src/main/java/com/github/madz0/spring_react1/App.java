@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.client.RestTemplate;
 
 import reactor.Environment;
@@ -26,6 +27,7 @@ import static reactor.bus.selector.Selectors.$;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
+@Profile("!test")
 public class App implements CommandLineRunner {
 	
 	private static final int NUMBER_OF_QUOTES = 10;

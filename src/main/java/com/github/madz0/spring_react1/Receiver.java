@@ -35,7 +35,9 @@ public class Receiver implements Consumer<Event<Integer>> {
 		QuoteResource quoteResource =
 				restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", QuoteResource.class);
 	
-		log.info("Quote {}: {} =============> {}", ev.getData(), quoteResource, quoteResource.getValue().getQuote());
+		log.info("Quote {}: {} =============> {}", ev.getData(), 
+				quoteResource, quoteResource!= null && quoteResource.getValue()!= null? 
+						quoteResource.getValue().getQuote():null);
 		latch.countDown();
 	}
 
