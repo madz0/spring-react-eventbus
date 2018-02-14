@@ -9,11 +9,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.web.client.RestTemplate;
 
 import reactor.Environment;
 import reactor.bus.EventBus;
@@ -29,19 +27,8 @@ import static reactor.bus.selector.Selectors.$;
 @ComponentScan
 @Profile("!test")
 public class App implements CommandLineRunner {
-	
-	private static final int NUMBER_OF_QUOTES = 10;
-	
-	@Bean
-    Environment env() {
-        return Environment.initializeIfEmpty()
-                          .assignErrorJournal();
-    }
-	
-	@Bean
-    EventBus createEventBus(Environment env) {
-	    return EventBus.create(env, Environment.THREAD_POOL);
-    }
+
+	static final int NUMBER_OF_QUOTES = 10;
 	
 	@Autowired
 	private EventBus eventBus;
@@ -51,18 +38,6 @@ public class App implements CommandLineRunner {
 
 	@Autowired
 	private Publisher publisher;
-
-	@Bean
-	public CountDownLatch latch() {
-		
-		return new CountDownLatch(NUMBER_OF_QUOTES);
-	}
-	
-	@Bean
-	public RestTemplate restTemplate() {
-		
-		return new RestTemplate();
-	}
 	
     public static void main(String[] args) throws BeansException, InterruptedException {
     	
